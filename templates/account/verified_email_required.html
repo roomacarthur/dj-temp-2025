@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your Email Address" %}{% endblock head_title %}
+
+{% block body %}
+    <div id="allauth-form">
+        <h1 class="allauth-h1">{% trans "Verify Your Email Address" %}</h1>
+
+        <p>{% blocktrans %}We require email verification for your account. Please check your email for a verification link.{% endblocktrans %}</p>
+
+        <p>{% blocktrans %}If you did not receive the email, you can request a new verification email in your <a href="{% url 'account_email' %}">email settings</a>.{% endblocktrans %}</p>
+    </div>
+{% endblock body %}

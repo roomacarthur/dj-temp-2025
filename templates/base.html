@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}
+    {% endblock extra_css %}
+    <title>
+        {% block head_title %}My Site{% endblock head_title %} - My Site
+    </title>
+
+</head>
+<body>
+    {% include "partials/navbar.html" %}
+    <main>
+    {% block body %}
+    {% endblock body %}
+    </main>
+    {% include "partials/footer.html" %}
+
+</body>
+</html>

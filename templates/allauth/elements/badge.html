@@ -1,0 +1,4 @@
+{% load allauth %}
+<span class="allauth-badge {% for tag in attrs.tags %}allauth-badge-{{ tag }} {% endfor %}">
+    {% slot %}
+</span>

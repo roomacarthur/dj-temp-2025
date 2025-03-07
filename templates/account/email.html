@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static allauth i18n %}
+
+{% block head_title %}{% trans "Email Addresses" %}{% endblock head_title %}
+
+{% block body %}
+    <div id="allauth-form">
+        <h1 class="allauth-h1">{% trans "Email Addresses" %}</h1>
+
+        {% if emailaddresses %}
+            <p>{% trans 'The following email addresses are associated with your account:' %}</p>
+
+            <form method="post" action="{% url 'account_email' %}">
+                {% csrf_token %}
+                
+                {% for emailaddress in emailaddresses %}
+                    <div class="allauth-email-list">
+                        <input type="radio" name="email" value="{{ emailaddress.email }}" {% if emailaddress.primary %}checked{% endif %}>
+                        <label>{{ emailaddress.email }}</label>
+
+                        {% if emailaddress.verified %}
+                            <span class="allauth-badge success">{% trans "Verified" %}</span>
+                        {% else %}
+                            <span class="allauth-badge warning">{% trans "Unverified" %}</span>
+                        {% endif %}
+
+                        {% if emailaddress.primary %}
+                            <span class="allauth-badge primary">{% trans "Primary" %}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="allauth-actions">
+                    <button type="submit" name="action_primary" class="allauth-button">{% trans 'Make Primary' %}</button>
+                    <button type="submit" name="action_send" class="allauth-button secondary">{% trans 'Re-send Verification' %}</button>
+                    <button type="submit" name="action_remove" class="allauth-button danger">{% trans 'Remove' %}</button>
+                </div>
+            </form>
+        {% else %}
+            <p>{% trans "You haven't added any email addresses yet." %}</p>
+        {% endif %}
+
+        {% if can_add_email %}
+            <h2 class="allauth-h2">{% trans "Add Email Address" %}</h2>
+
+            <form method="post" action="{% url 'account_email' %}">
+                {% csrf_token %}
+                <input type="email" name="email" required placeholder="{% trans 'Enter your email' %}">
+                <button type="submit" name="action_add" class="allauth-button">{% trans "Add Email" %}</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock body %}

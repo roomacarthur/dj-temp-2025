@@ -1,0 +1,6 @@
+{% load allauth %}
+<form method="{{ attrs.method }}" action="{{ attrs.action }}" class="allauth-form">
+    {% csrf_token %}
+    {% slot body %}{% endslot %}
+    {% slot actions %}{% endslot %}
+</form>
